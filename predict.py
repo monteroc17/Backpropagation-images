@@ -1,5 +1,6 @@
 from math import exp
 import pickle
+import glob
 
 # Calculate neuron activation for an input
 def activate(weights, inputs):
@@ -14,7 +15,7 @@ def transfer(activation):
 
 # Forward propagate input to a network output
 def forward_propagate(network, row):
-	inputs = row
+	inputs = row[0]
 	for layer in network:
 		new_inputs = []
 		for neuron in layer:
@@ -30,16 +31,18 @@ def predict(network, row):
 	return outputs.index(max(outputs))
 
 # Test making predictions with the network
-dataset = [[2.7810836,2.550537003,0],
-	[1.465489372,2.362125076,0],
-	[3.396561688,4.400293529,0],
-	[1.38807019,1.850220317,0],
-	[3.06407232,3.005305973,0],
-	[7.627531214,2.759262235,1],
-	[5.332441248,2.088626775,1],
-	[6.922596716,1.77106367,1],
-	[8.675418651,-0.242068655,1],
-	[7.673756466,3.508563011,1]]
+files = glob.glob("D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles/*.txt")
+dataset = []
+filedata = []
+
+for myFile in files:
+    with open(myFile, "r") as f:
+        for line in f:
+            for ch in line:
+                if (ch == '1') or (ch == '0'):
+                    filedata.append(float(ch))
+    dataset.append([filedata, 0])
+
 
 with open('weights.txt', 'rb') as file:
     network = pickle.load(file)
