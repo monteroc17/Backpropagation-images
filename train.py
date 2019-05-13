@@ -127,7 +127,7 @@ for myFile in files:
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
 network = initialize_network(n_inputs, 2, 2)
-train_network(network, dataset, 0.5, 10000, 2)
+train_network(network, dataset, 0.5, 20, 2)
 for layer in network:
     print(layer)
 with open('weights.txt', 'wb') as file:

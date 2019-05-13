@@ -51,13 +51,13 @@ filedata = []
 
 
 for myFile in files:
-	with open(myFile, "r") as f:
-		for line in f:
-			for ch in line:
-				if (ch == '1') or (ch == '0'):
-					filedata.append(float(ch))
-	if myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p1.txt":
-    	filedata.append(1)
+    with open(myFile, "r") as f:
+        for line in f:
+            for ch in line:
+                if (ch == '1') or (ch == '0'):
+                    filedata.append(int(ch))
+    if myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p1.txt":
+        filedata.append(1)
     elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p2.txt":
         filedata.append(1)
     elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p3.txt":
