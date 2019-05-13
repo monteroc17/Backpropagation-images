@@ -11,6 +11,8 @@ def activate(weights, inputs):
 
 # Transfer neuron activation
 def transfer(activation):
+	if activation < 0:
+		return 1.0 - 1.0 / (1.0 + exp(activation))
 	return 1.0 / (1.0 + exp(-activation))
 
 # Forward propagate input to a network output
@@ -41,7 +43,7 @@ for myFile in files:
             for ch in line:
                 if (ch == '1') or (ch == '0'):
                     filedata.append(float(ch))
-    dataset.append([filedata, 0])
+    dataset.append([filedata, 1])
 
 
 with open('weights.txt', 'rb') as file:

@@ -33,6 +33,8 @@ def activate(weights, inputs):
 
 
 def transfer(activation):
+    if activation < 0:
+        return 1.0 - 1.0 / (1.0 + exp(activation))
     return 1.0 / (1.0 + exp(-activation))
 
 # Forward propagate input to a network output
@@ -125,6 +127,7 @@ for myFile in files:
                 if (ch == '1') or (ch == '0'):
                     filedata.append(float(ch))
     dataset.append([filedata, 0])
+
 
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
