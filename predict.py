@@ -3,21 +3,30 @@ import pickle
 import glob
 
 # Calculate neuron activation for an input
+
+
 def activate(weights, inputs):
 	activation = weights[-1]
-	for i in range(len(weights)-1):
-		activation += weights[i] * inputs[i]
+	for i in range(len(weights) - 1):
+		if isinstance(inputs[i], list):
+			for k in inputs[i]:
+				activation += weights[i] * k
+		else:
+			activation += weights[i] * inputs[i]
 	return activation
+
 
 # Transfer neuron activation
 def transfer(activation):
-	if activation < 0:
-		return 1.0 - 1.0 / (1.0 + exp(activation))
-	return 1.0 / (1.0 + exp(-activation))
+	if activation >= 0:
+		return 1.0 / (1.0 + exp(-activation))
+	else:
+		return exp(activation) / (1 + exp(activation))
+
 
 # Forward propagate input to a network output
 def forward_propagate(network, row):
-	inputs = row[0]
+	inputs = row
 	for layer in network:
 		new_inputs = []
 		for neuron in layer:
@@ -27,23 +36,45 @@ def forward_propagate(network, row):
 		inputs = new_inputs
 	return inputs
 
+
 # Make a prediction with a network
 def predict(network, row):
 	outputs = forward_propagate(network, row)
 	return outputs.index(max(outputs))
 
+
 # Test making predictions with the network
-files = glob.glob("D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles/*.txt")
+files = glob.glob(
+    "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles/*.txt")
 dataset = []
 filedata = []
 
+
 for myFile in files:
-    with open(myFile, "r") as f:
-        for line in f:
-            for ch in line:
-                if (ch == '1') or (ch == '0'):
-                    filedata.append(float(ch))
-    dataset.append([filedata, 1])
+	with open(myFile, "r") as f:
+		for line in f:
+			for ch in line:
+				if (ch == '1') or (ch == '0'):
+					filedata.append(float(ch))
+	if myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p1.txt":
+    	filedata.append(1)
+    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p2.txt":
+        filedata.append(1)
+    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p3.txt":
+        filedata.append(1)
+    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p4.txt":
+        filedata.append(1)
+    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p5.txt":
+        filedata.append(1)
+    else:
+        filedata.append(0)
+    dataset.append(filedata)
+
+
+''' dataset = [[0,0,0],
+[0,1,0],
+[1,0,0],
+[1,1,1]] '''
 
 
 with open('weights.txt', 'rb') as file:
