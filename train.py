@@ -94,7 +94,9 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
 seed(1)
 
 # your image path
-files = glob.glob("D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles/*.txt")
+files = glob.glob("")
+# G:/Files/TEC/IA/Backpropagation-images/binaryfiles/*.txt                       <-- Daniel
+# D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles/*.txt   <--Josue
 
 dataset = []
 filedata = []
@@ -127,7 +129,7 @@ for myFile in files:
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
 network = initialize_network(n_inputs, 2, 2)
-train_network(network, dataset, 0.5, 20, 2)
+train_network(network, dataset, 0.5, 200, 2)
 for layer in network:
     print(layer)
 with open('weights.txt', 'wb') as file:
