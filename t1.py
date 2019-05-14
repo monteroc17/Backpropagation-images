@@ -10,12 +10,15 @@ n_capa_oculta = 2
 n_capa_salida = 1
 ALFA = 0.25
 
-weights_capa_oculta = [
-    [0.1, -0.7],
-    [0.5, 0.3]
-]
+# weights_capa_oculta = [
+#     [0.1, -0.7],
+#     [0.5, 0.3]
+# ]
 
-weights_capa_salida = [[0.2], [0.4]]
+# weights_capa_salida = [[0.2], [0.4]]
+
+weights_capa_oculta = [[random() for i in range(n_capa_entrada)] for i in range(n_capa_oculta)]
+weights_capa_salida = [[random()] for i in range(n_capa_oculta) for i in range(n_capa_salida)]
 
 def sigmoid(gamma):
     return 1.0 / (1.0 + exp(-gamma))
@@ -90,9 +93,10 @@ def forward_propagation(n_c_oculta, n_c_salida, entradas, result_esperados, inte
             print(weights_capa_salida)
             print("-------------------------------------------------------------------------")
 
-
+print(weights_capa_oculta)
+print(weights_capa_salida)
 forward_propagation(n_capa_oculta, n_capa_salida, [
     [0, 1],
     [1, 0],
     [1, 1],
-    [0, 0]], [0, 0, 1, 0], 2000)
+    [0, 0]], [0, 0, 1, 0], 10)
