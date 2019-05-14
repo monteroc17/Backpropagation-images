@@ -89,14 +89,15 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
             update_weights(network, row, l_rate)
         print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
 
+PATH = ""
+# G:/Files/TEC/IA/Backpropagation-images/binaryfiles                       <-- Daniel
+# D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles   <--Josue
 
 # Test training backprop algorithm
 seed(1)
 
 # your image path
-files = glob.glob("")
-# G:/Files/TEC/IA/Backpropagation-images/binaryfiles/*.txt                       <-- Daniel
-# D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles/*.txt   <--Josue
+files = glob.glob(PATH + "/*.txt")
 
 dataset = []
 filedata = []
@@ -107,15 +108,15 @@ for myFile in files:
             for ch in line:
                 if (ch == '1') or (ch == '0'):
                     filedata.append(int(ch))
-    if myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p1.txt":
+    if myFile == PATH + "\p1.txt":
         filedata.append(1)
-    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p2.txt":
+    elif myFile == PATH + "\p2.txt":
         filedata.append(1)
-    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p3.txt":
+    elif myFile == PATH + "\p3.txt":
         filedata.append(1)
-    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p4.txt":
+    elif myFile == PATH + "\p4.txt":
         filedata.append(1)
-    elif myFile == "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles\p5.txt":
+    elif myFile == PATH + "\p5.txt":
         filedata.append(1)
     else:
         filedata.append(0)
