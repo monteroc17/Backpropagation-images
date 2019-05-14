@@ -58,20 +58,25 @@ for myFile in files:
         for line in f:
             for ch in line:
                 if (ch == '1') or (ch == '0'):
-                    filedata.append(int(ch))
-    if myFile == PATH + "\p1.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p2.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p3.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p4.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p5.txt":
-        filedata.append(1)
-    else:
+                    filedata.append(float(ch))
+     if myFile == PATH + "\p1.txt":
         filedata.append(0)
-    dataset.append(filedata)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p2.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p3.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p4.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p5.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    else:
+        filedata.append(1)
+        dataset.append(filedata)
     filedata = []
 
 

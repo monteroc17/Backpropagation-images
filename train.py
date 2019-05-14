@@ -31,6 +31,7 @@ def transfer(activation):
 
 # Forward propagate input to a network output
 def forward_propagate(network, row):
+    print(row)
     inputs = row
     for layer in network:
         new_inputs = []
@@ -81,6 +82,7 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
         sum_error = 0
         for row in train:
             outputs = forward_propagate(network, row)
+            print(outputs)
             expected = [0 for i in range(n_outputs)]
             expected[row[-1]] = 1
             sum_error += sum([(expected[i]-outputs[i]) ** 2 for i in range(len(expected))])
@@ -102,32 +104,49 @@ dataset = []
 filedata = []
 
 for myFile in files:
-    print(myFile)
     with open(myFile, "r") as f:
         for line in f:
             for ch in line:
                 if (ch == '1') or (ch == '0'):
                     filedata.append(float(ch))
+        f.close()
     if myFile == PATH + "\p1.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p2.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p3.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p4.txt":
-        filedata.append(1)
-    elif myFile == PATH + "\p5.txt":
-        filedata.append(1)
-    else:
         filedata.append(0)
-    dataset.append(filedata)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p2.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p3.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p4.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    elif myFile == PATH + "\p5.txt":
+        filedata.append(0)
+        dataset.append(filedata)
+    elif myFile == PATH + "\m1.txt":
+        filedata.append(1)
+        dataset.append(filedata)
+    elif myFile == PATH + "\m2.txt":
+        filedata.append(1)
+        dataset.append(filedata)
+    elif myFile == PATH + "\m3.txt":
+        filedata.append(1)
+        dataset.append(filedata)
+    elif myFile == PATH + "\m4.txt":
+        filedata.append(1)
+        dataset.append(filedata)
+    elif myFile == PATH + "\m5.txt":
+        filedata.append(1)
+        dataset.append(filedata)
     filedata = []
 
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
 network = initialize_network(n_inputs, 2, n_outputs)
-train_network(network, dataset, 0.5, 1000, n_outputs)
-for layer in network:
-    print(layer)
+train_network(network, dataset, 0.5, 10000, n_outputs)
+#for layer in network:
+#    print(layer)
 with open('weights.txt', 'wb') as file:
     pickle.dump(network, file)
