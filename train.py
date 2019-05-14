@@ -82,14 +82,13 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
         for row in train:
             outputs = forward_propagate(network, row)
             expected = [0 for i in range(n_outputs)]
-            #print(outputs)
             expected[row[-1]] = 1
             sum_error += sum([(expected[i]-outputs[i]) ** 2 for i in range(len(expected))])
             backward_propagate_error(network, expected)
             update_weights(network, row, l_rate)
         print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
 
-PATH = ""
+PATH = "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles"
 # G:/Files/TEC/IA/Backpropagation-images/binaryfiles                       <-- Daniel
 # D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles   <--Josue
 
@@ -103,11 +102,12 @@ dataset = []
 filedata = []
 
 for myFile in files:
+    print(myFile)
     with open(myFile, "r") as f:
         for line in f:
             for ch in line:
                 if (ch == '1') or (ch == '0'):
-                    filedata.append(int(ch))
+                    filedata.append(float(ch))
     if myFile == PATH + "\p1.txt":
         filedata.append(1)
     elif myFile == PATH + "\p2.txt":
@@ -121,16 +121,12 @@ for myFile in files:
     else:
         filedata.append(0)
     dataset.append(filedata)
-
-''' dataset = [[0,0,0],
-[0,1,0],
-[1,0,0],
-[1,1,1]] '''
+    filedata = []
 
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
-network = initialize_network(n_inputs, 2, 2)
-train_network(network, dataset, 0.5, 200, 2)
+network = initialize_network(n_inputs, 2, n_outputs)
+train_network(network, dataset, 0.5, 1000, n_outputs)
 for layer in network:
     print(layer)
 with open('weights.txt', 'wb') as file:
