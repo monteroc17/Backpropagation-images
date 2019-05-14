@@ -31,7 +31,7 @@ def transfer(activation):
 
 # Forward propagate input to a network output
 def forward_propagate(network, row):
-    print(row)
+    #print(row)
     inputs = row
     for layer in network:
         new_inputs = []
@@ -82,7 +82,7 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
         sum_error = 0
         for row in train:
             outputs = forward_propagate(network, row)
-            print(outputs)
+            #print(outputs)
             expected = [0 for i in range(n_outputs)]
             expected[row[-1]] = 1
             sum_error += sum([(expected[i]-outputs[i]) ** 2 for i in range(len(expected))])

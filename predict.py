@@ -18,10 +18,7 @@ def activate(weights, inputs):
 
 # Transfer neuron activation
 def transfer(activation):
-    if activation >= 0:
-        return 1.0 / (1.0 + exp(-activation))
-    else:
-        return exp(activation) / (1 + exp(activation))
+    return 1.0 / (1.0 + exp(-activation))
 
 
 # Forward propagate input to a network output
