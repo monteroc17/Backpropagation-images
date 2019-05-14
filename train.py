@@ -142,6 +142,7 @@ for myFile in files:
         dataset.append(filedata)
     filedata = []
 
+
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
 network = initialize_network(n_inputs, 2, n_outputs)
