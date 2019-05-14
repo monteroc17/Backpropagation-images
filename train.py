@@ -7,7 +7,7 @@ import glob
 import cv2
 from pathlib import Path
 
-
+# initialize the network
 def initialize_network(n_inputs, n_hidden, n_outputs):
     network = list()
     hidden_layer = [{'weights': [random() for i in range(n_inputs + 1)]}
