@@ -82,13 +82,13 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
         sum_error = 0
         for row in train:
             outputs = forward_propagate(network, row)
-            #print(outputs)
             expected = [0 for i in range(n_outputs)]
             expected[row[-1]] = 1
             sum_error += sum([(expected[i]-outputs[i]) ** 2 for i in range(len(expected))])
             backward_propagate_error(network, expected)
             update_weights(network, row, l_rate)
         print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, l_rate, sum_error))
+    return network
 
 PATH = "D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles"
 # G:/Files/TEC/IA/Backpropagation-images/binaryfiles                       <-- Daniel
@@ -146,8 +146,10 @@ for myFile in files:
 n_inputs = len(dataset[0]) - 1
 n_outputs = len(set([row[-1] for row in dataset]))
 network = initialize_network(n_inputs, 2, n_outputs)
-train_network(network, dataset, 0.5, 10000, n_outputs)
+print("N: "+str(network))
+updated_network = train_network(network, dataset, 0.5, 10000, n_outputs)
+print("UN: "+str(update_weights))
 #for layer in network:
 #    print(layer)
 with open('weights.txt', 'wb') as file:
-    pickle.dump(network, file)
+    pickle.dump(updated_network, file)

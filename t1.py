@@ -21,9 +21,10 @@ ALFA = 0.25
 weights_capa_oculta = [[random() for i in range(n_capa_entrada)]for i in range(n_capa_oculta)]
 weights_capa_salida = [[random()] for i in range(n_capa_oculta)for i in range(n_capa_salida)]
 
-
 def sigmoid(gamma):
-    return 1.0 / (1.0 + math.exp(-gamma))
+    if gamma < 0:
+        return math.exp(gamma) / (1 + math.exp(gamma))
+    return 1 / (1 + math.exp(-gamma))
 
 
 def calcular_salida_capa(resultados_for_prop, num_neuronas, pesos_capa):
@@ -40,7 +41,7 @@ def calc_error_c_oculta(result_salida, error_neuronal, mult_wei_nuevos_pesos):
 def calc_error_real_obtenido(result_esperado,result_c_salida):
     return result_c_salida * (1-result_c_salida) * (result_esperado-result_c_salida)
 
-#ajuste pesos para la capa oculta
+# ajuste pesos para la capa oculta
 def ajustar_pesos_oculta(salidas_c_oculta,p_c_salida, result_esperado, p_c_oculta, entrada,result_c_salida):
     for n in range(len(weights_capa_oculta)): #recorrer cada neurona
         #calculo del delta para la neurona h
@@ -48,26 +49,26 @@ def ajustar_pesos_oculta(salidas_c_oculta,p_c_salida, result_esperado, p_c_ocult
         for j in range(len(weights_capa_oculta)): #recorrer cada elemento peso de la capa oculta
             weights_capa_oculta[n][j] = weights_capa_oculta[n][j]+ALFA*entrada[j]*delta
 
-#ajuste pesos para la capa oculta
+# ajuste pesos para la capa oculta
 def ajustar_pesos_salida(result_esperado, result_c_salida, pesos_c_salida, r_c_oculta):
     delta = calc_error_real_obtenido(result_esperado,result_c_salida)
     for p in range(len(pesos_c_salida)):
         weights_capa_salida[p][0] = weights_capa_salida[p][0] + ALFA * r_c_oculta[p]*delta
 
-
+# para la parte de prueba
 def forward_propagation(n_c_oculta, entradas):
     result_capa_oculta = []
-    result_individual = 0
+    result_neu_capa_oculta = 0
     for n in range(n_c_oculta):
         for k in range(n_c_oculta):
-            result_individual += weights_capa_oculta[n][k] * entradas[k]
-        result_capa_oculta.append(sigmoid(result_individual))
-        result_individual = 0
+            result_neu_capa_oculta += weights_capa_oculta[n][k] * entradas[k]
+        result_capa_oculta.append(sigmoid(result_neu_capa_oculta))
+        result_neu_capa_oculta = 0
         
     #se saca la neurona de la capa de salida
     for elem_c_salida in weights_capa_salida:
-        result_individual += elem_c_salida[0] *  result_capa_oculta[weights_capa_salida.index(elem_c_salida)]    
-    result_capa_salida = sigmoid(result_individual)
+        result_neu_capa_oculta += elem_c_salida[0] *  result_capa_oculta[weights_capa_salida.index(elem_c_salida)]    
+    result_capa_salida = sigmoid(result_neu_capa_oculta)
     print(result_capa_salida)
 
 def calc_total_error(target, output):
@@ -105,17 +106,17 @@ def train(n_c_oculta, n_c_salida, entradas, result_esperados, interacciones):
                 weights_capa_oculta, entradas[e], result_capa_salida
             )
             ajustar_pesos_salida(result_esperados[e],result_capa_salida,weights_capa_salida, result_capa_oculta)
+            
+            print("Epoch #" + str(i+1))
+            print("Error: "+str(total_error))
+            print("RESULTADO CAPA SALIDA: "+str(result_capa_salida))
 
             result_capa_oculta = []  # se reinicia el proceso
             result_capa_salida = 0
-
-            print("Epoch #" + str(i+1))
-            print("Error: "+str(total_error))
-            print(weights_capa_oculta)
-            print(weights_capa_salida)
-            print(
-                "-------------------------------------------------------------------------")
+            
+            print("-------------------------------------------------------------------------")
         total_error = 0
+
     with open('pesos.txt', 'wb') as file:
         pickle.dump(weights_capa_oculta, file)
     
@@ -123,14 +124,14 @@ def train(n_c_oculta, n_c_salida, entradas, result_esperados, interacciones):
 def predict(weights, row):
     result = []
     result = forward_propagation(len(weights), row)
-    print("--------------------------------------------------")
 
 def testing():
     train(n_capa_oculta, n_capa_salida, [
     [0, 1],
     [1, 0],
     [1, 1],
-    [0, 0]], [1, 1, 0, 0], 5000)
+    [0, 0]], [1, 1, 0, 0], 1000)
+
     dataset = [
         [0, 1],
         [1, 0],
@@ -144,10 +145,7 @@ def testing():
         #rint(prediction)
         #print('Expected=%d, Got=%d' % (expected[row], prediction))
 
-
 testing()
-print(weights_capa_oculta)
-print(weights_capa_salida)
 
 
 
