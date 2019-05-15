@@ -2,9 +2,9 @@ import numpy as np
 import glob
 from pathlib import Path
 
-PATH = "G:/Files/TEC/IA/Backpropagation-images/binaryfiles"
-PATH_TEST = "G:/Files/TEC/IA/Backpropagation-images/test.txt"
-# G:/Files/TEC/IA/Backpropagation-images/binaryfiles                       <-- Daniel
+PATH = "C:/Users/dmont/Documents/TEC\IA/Backpropagation-images/binaryfiles"
+PATH_TEST = "C:/Users/dmont/Documents/TEC\IA/Backpropagation-images/test.txt"
+# C:/Users/dmont/Documents/TEC\IA/Backpropagation-images/binaryfiles       <-- Daniel
 # D:/Documents/Semestres/7/IA/Examen1/Backpropagation-images/binaryfiles   <--Josue
 
 # image path
@@ -94,5 +94,5 @@ with open(PATH_TEST, "r") as f:
 
 test = np.array([image], dtype=int)
 print("--------------------TEST---------------------")
-print("Resultados Esperados: \n" + str(0)) 
+print("Resultados Esperados: \n" + str(1)) 
 print("Resultados obtenidos: \n" + str(NN.forward(test)) )
