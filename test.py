@@ -44,10 +44,11 @@ class Neural_Network(object):
         self.hiddenSize = 4
 
         # weights
+        self.load_weights()
         # (3x2) weight matrix from input to hidden layer
-        self.W1 = np.random.randn(self.inputSize, self.hiddenSize)
+        #self.W1 = np.random.randn(self.inputSize, self.hiddenSize)
         # (3x1) weight matrix from hidden to output layer
-        self.W2 = np.random.randn(self.hiddenSize, self.outputSize)
+        #self.W2 = np.random.randn(self.hiddenSize, self.outputSize)
 
     def forward(self, X):
         # forward propagation through our network
