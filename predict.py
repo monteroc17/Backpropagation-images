@@ -68,7 +68,7 @@ for row in dataset:
 #         dataset.append(filedata)
 #     filedata = []
 
-""" dataset = [[0,0,0],
+dataset = [[0,0,0],
 [0,1,0],
 [1,0,0],
 [1,1,1]] 
@@ -76,8 +76,9 @@ for row in dataset:
 
 with open('weights.txt', 'rb') as file:
     network = pickle.load(file)
+print(network)
 # network = [[{'weights': [-1.482313569067226, 1.8308790073202204, 1.078381922048799]}, {'weights': [0.23244990332399884, 0.3621998343835864, 0.40289821191094327]}],
 # 	[{'weights': [2.5001872433501404, 0.7887233511355132, -1.1026649757805829]}, {'weights': [-2.429350576245497, 0.8357651039198697, 1.0699217181280656]}]]
 for row in dataset:
     prediction = predict(network, row)
-    print('Expected=%d, Got=%d' % (row[-1], prediction)) """
+    print('Expected=%d, Got=%d' % (row[-1], prediction)) 
