@@ -1,4 +1,7 @@
 import numpy as np
+import glob
+from pathlib import Path
+import pickle
 
 zero = [
   0, 1, 1, 0,
@@ -95,6 +98,18 @@ class Neural_Network(object):
     print("Input (scaled): \n" + str(xPredicted));
     print("Actual Output: \n" + str((self.forward(xPredicted))*3));
     #print("Rounded Output: \n" + str(round((self.forward(xPredicted))*3)));
+
+    def save_weights(self, peso_c_oculta, peso_c_salida):
+        with open('w1.txt', 'wb') as file:
+            pickle.dump(peso_c_oculta, file)
+        with open('w2.txt', 'wb') as file:
+          pickle.dump(peso_c_salida, file)
+
+    def load_weights(self):
+        with open('w1.txt', 'rb') as file:
+          self.W1 = pickle.load(file)
+        with open('w2.txt', 'rb') as file:
+          self.W2 = pickle.load(file)
 
 NN = Neural_Network()
 for i in range(10000): # trains the NN 100,000 times
