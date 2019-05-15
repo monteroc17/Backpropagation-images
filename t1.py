@@ -3,6 +3,7 @@ import math
 from decimal import *
 from random import seed
 from random import random
+import pickle
 
 c_oculta = 1
 n_capa_entrada = 2
@@ -115,6 +116,10 @@ def train(n_c_oculta, n_c_salida, entradas, result_esperados, interacciones):
             print(
                 "-------------------------------------------------------------------------")
         total_error = 0
+    with open('pesos.txt', 'wb') as file:
+        pickle.dump(weights_capa_oculta, file)
+    
+
 def predict(weights, row):
     result = []
     result = forward_propagation(len(weights), row)
