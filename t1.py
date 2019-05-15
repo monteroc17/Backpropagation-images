@@ -62,7 +62,12 @@ def forward_propagation(n_c_oculta, entradas):
             result_individual += weights_capa_oculta[n][k] * entradas[k]
         result_capa_oculta.append(sigmoid(result_individual))
         result_individual = 0
-    return result_capa_oculta
+        
+    #se saca la neurona de la capa de salida
+    for elem_c_salida in weights_capa_salida:
+        result_individual += elem_c_salida[0] *  result_capa_oculta[weights_capa_salida.index(elem_c_salida)]    
+    result_capa_salida = sigmoid(result_individual)
+    print(result_capa_salida)
 
 def calc_total_error(target, output):
     return 0.5 * math.pow((target - output),2)
@@ -114,15 +119,13 @@ def predict(weights, row):
     result = []
     result = forward_propagation(len(weights), row)
     print("--------------------------------------------------")
-    print(result)
-    return result.index(max(result))
 
 def testing():
     train(n_capa_oculta, n_capa_salida, [
     [0, 1],
     [1, 0],
     [1, 1],
-    [0, 0]], [1, 1, 0, 0], 1000)
+    [0, 0]], [1, 1, 0, 0], 5000)
     dataset = [
         [0, 1],
         [1, 0],
@@ -133,12 +136,13 @@ def testing():
     print("-------------RESULTS--------------------")
     for row in range(len(dataset)):
         prediction = predict(weights_capa_oculta, dataset[row])
-        print('Expected=%d, Got=%d' % (expected[row], prediction))
+        #rint(prediction)
+        #print('Expected=%d, Got=%d' % (expected[row], prediction))
 
 
 testing()
-#print(weights_capa_oculta)
-#print(weights_capa_salida)
+print(weights_capa_oculta)
+print(weights_capa_salida)
 
 
 
